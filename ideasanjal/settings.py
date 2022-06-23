@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'ideasanjal.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': "mysql.connector.django",
+        'NAME': "ideasanjal_db",
+        'USER': "theanxiuser",
+        'PASSWORD': "theanxiuser@@0011$$",
+        'HOST': "localhost",
+        'PORT': "3306",
     }
 }
 
