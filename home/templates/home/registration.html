@@ -1,0 +1,54 @@
+{% extends "home/index.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<div class="login-form-wrapper">
+    {{form.errors}}  
+
+        <form class="row g-3" action="{% url 'mynw:register' %}" method="post">
+            {% csrf_token %}
+            <div class="col-md-6">
+                <!-- First name -->
+                {% render_field form.first_name class="form-control" placeholder="First Name" %}
+            </div>
+
+            <div class="col-md-6">
+              <!-- Last name -->
+              {% render_field form.last_name class="form-control" placeholder="Last Name" %}
+            </div>
+
+            <div class="col-12">
+              <!-- E-mail -->
+            {% render_field form.email class="form-control" placeholder="Email" %}
+            </div>
+
+            <div class="col-md-6">
+                <!-- Username -->
+                {% render_field form.username class="form-control" placeholder="Username" %}
+            </div>
+
+            <div class="col-md-6">
+              <!-- Age -->
+              {% render_field form.age class="form-control" placeholder="Age" %}
+            </div>
+
+            <div class="col-12">
+              <!-- Password -->
+            {% render_field form.password class="form-control" type="password" placeholder="Password" %}
+            </div>
+        
+            <div class="d-grid gap-2">
+                <button class="btn btn-primary" type="submit">SIGN UP</button>
+            </div>
+
+        </form>
+
+
+          <hr>
+  
+        <!-- Terms of service -->
+        <p>By clicking<em>Sign up</em> you agree to our Terms of Service.</p>
+</div>
+
+{% endblock %}
