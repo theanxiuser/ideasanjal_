@@ -2,6 +2,10 @@ from django import forms
 from .models import ISUser
 from django.contrib.auth import authenticate
 
+class EditProfileForm(forms.ModelForm):
+    class Meta:
+        fields = ["first_name", "last_name", "username", "email", "age", "profession", "bio", "skills", "linkedin", "twitter", "facebook", "github"]
+
 class RegistrationForm(forms.ModelForm):
     """RegistrationForm is used to register a new user."""
     

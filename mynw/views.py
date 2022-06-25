@@ -1,12 +1,55 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views import View
 from . forms import LoginForm, RegistrationForm
 from django.contrib.auth import login, logout
 from django.contrib import messages
 from .models import ISUser
+from django.views.generic import DetailView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import EditProfileForm
 
 # Create your views here.
+
+class EditProfileView(LoginRequiredMixin, UpdateView):
+    """Edit profile view"""
+
+    form = EditProfileForm
+    fields = ["first_name", "last_name", "username", "email", "age", "profession", "bio", "skills", "linkedin", "twitter", "facebook", "github"]
+    template_name = "mynw/edit_profile.html"
+    success_url = reverse_lazy("mynw:profile")
+    
+    def get_object(self):
+        return get_object_or_404(ISUser, pk=self.request.user.id)
+
+class UserProfileView(DetailView):
+    """User profile view"""
+
+    model = ISUser
+    template_name = "mynw/profile.html"
+    context_object_name = "user"
+    slug_url_kwarg = "id_number"
+
+    def get_context_data(self, **kwargs):
+        context = super(UserProfileView, self).get_context_data(**kwargs)
+        context["self_profile"] = False
+        return context
+
+
+class ProfileView(DetailView):
+    """Profile view is used to display own profile"""
+
+    template_name = "mynw/profile.html"
+    context_object_name = "user"
+    
+    def get_object(self):
+        return get_object_or_404(ISUser, id=self.request.user.id)
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileView, self).get_context_data(**kwargs)
+        context["self_profile"] = True
+        return context
+
 class FeedView(View):
     """Return feed.html if user is logged in
     If user is not logged in then redirect to login page"""
