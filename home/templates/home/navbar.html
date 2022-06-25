@@ -1,0 +1,23 @@
+<nav class="navbar-container">
+    <div class="nav-logo">
+        <a href="#">IDEASANJAL</a>
+    </div>
+    <div class="nav-title">
+        {% if user.is_authenticated %}
+        <ul>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'mynw:feed' %}">Feed</a></li>
+            <li><a href="{% url 'mynw:logout' %}">Logout</a></li>
+
+        </ul>
+
+        {% else %}
+        <ul>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'mynw:login' %}">Login</a></li>
+            <li><a href="{% url 'mynw:register' %}">Register</a></li>
+
+        </ul>
+        {% endif %}
+    </div>
+</nav>
