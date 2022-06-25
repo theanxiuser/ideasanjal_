@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -29,3 +30,32 @@ class ISUser(AbstractUser):
     class Meta:
         verbose_name = "User"
         verbose_name_plural = "Users"
+
+class Idea(models.Model):
+    """
+    Idea model is used to store ideas.
+    """
+
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(ISUser, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.user} - {self.title}"
+
+    class Meta:
+        verbose_name = "Idea"
+        verbose_name_plural = "Ideas"
+
+class Message(models.Model):
+    """Model for messages"""
+
+    sender = models.ForeignKey(ISUser, on_delete=models.CASCADE, related_name="sent_messages")
+    receiver = models.ForeignKey(ISUser, on_delete=models.CASCADE, related_name="received_messages")
+    timestamp = models.DateTimeField(auto_now_add=True)
+    message = models.TextField()
+
+    def __str__(self):
+        return f"{self.sender} - {self.message}"
