@@ -49,7 +49,7 @@ class DeleteIdeaView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 class CreateIdeaView(LoginRequiredMixin, View):
     """Create an idea"""
 
-    template_name = "mynw/feed.html"
+    template_name = "home/feed.html"
     form_class = IdeaCreationForm
 
     def form_valid(self, form):
@@ -67,7 +67,7 @@ class MyIdeasView(LoginRequiredMixin, ListView):
     """View for my ideas"""
 
     def get_queryset(self):
-        queryset =  Idea.objects.filter(user=self.request.user)
+        queryset = Idea.objects.filter(user=self.request.user)
         return queryset
 
     template_name = "mynw/my_ideas.html"
@@ -84,27 +84,6 @@ class IdeaView(DetailView, LoginRequiredMixin):
     pk_url_kwarg = "id_number"
 
 
-class FeedView(ListView, LoginRequiredMixin):
-    """Return feed.html if user is logged in
-    If user is not logged in then redirect to login page"""
-
-    model = Idea
-    template_name = "mynw/feed.html"
-    context_object_name = "ideas"
-    ordering = ["-timestamp"]
-    paginated_by = 6
-
-    def post(self, *args, **kwargs):
-        query = self.request.POST.get("query")
-        if query:
-            object_list = self.model.objects.filter(title__icontains = query)
-        else:
-            object_list = self.model.objects.all()
-
-        return render(self.request, "mynw/feed.html", {"ideas": object_list})
-
-
-
 class EditProfileView(LoginRequiredMixin, UpdateView):
     """Edit profile view"""
 
@@ -115,6 +94,7 @@ class EditProfileView(LoginRequiredMixin, UpdateView):
     
     def get_object(self):
         return get_object_or_404(ISUser, pk=self.request.user.id)
+
 
 class UserProfileView(DetailView):
     """User profile view"""
@@ -159,7 +139,7 @@ def login_view(request):
 
     if request.user.is_authenticated:
         messages.info(request, "You are already logged in.")
-        return redirect(reverse_lazy("mynw:feed"))
+        return redirect(reverse_lazy("home:feed"))
 
     if request.method == "POST":
         form = LoginForm(request.POST)
@@ -168,7 +148,7 @@ def login_view(request):
             if user:
                 login(request, user)
                 messages.success(request, "Login successfully.")
-                return redirect(reverse_lazy("mynw:feed"))
+                return redirect(reverse_lazy("home:feed"))
     
     else:
         form = LoginForm()
@@ -186,7 +166,7 @@ def register_view(request):
 
     if request.user.is_authenticated:
         messages.info(request, "You are already logged in.")
-        return redirect(reverse_lazy("mynw:feed"))
+        return redirect(reverse_lazy("home:feed"))
 
     if request.method == "POST":
         form = RegistrationForm(request.POST)
@@ -200,7 +180,7 @@ def register_view(request):
             user = create_user(first_name=first_name, last_name=last_name, username=username, email=email, password=password, age=age)
             login(request, user)
             messages.success(request, "You are registered and logged in.")
-            return redirect(reverse_lazy("mynw:feed")) # need to change into edit profile
+            return redirect(reverse_lazy("home:feed")) # need to change into edit profile
 
     else:
         form = RegistrationForm()
