@@ -15,7 +15,7 @@ class Post(models.Model):
     content = models.TextField()
     status = models.IntegerField(choices=STATUS, default=0)
     author = models.ForeignKey(ISUser, on_delete=models.CASCADE)
-    image = models.ImageField(default="", upload_to="static/img/", null=True, blank=True)
+    image = models.ImageField(default="", upload_to="post-img/", null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
