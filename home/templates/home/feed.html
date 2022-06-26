@@ -1,0 +1,12 @@
+{% extends "home/index.html" %}
+
+{% block content %}
+<h1>This is Feed page</h1>
+
+{% for post in post_list %}
+    {{ post.title }} <hr>
+    {{ post.content | slice:":200" }}<hr>
+    <a href="{% url 'home:post-detail' post.slug  %}">Read More &rarr;</a><hr><hr>
+{% endfor %}
+
+{% endblock %}

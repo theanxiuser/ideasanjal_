@@ -1,7 +1,5 @@
-from unicodedata import category
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.dispatch import receiver
 
 # Create your models here.
 
