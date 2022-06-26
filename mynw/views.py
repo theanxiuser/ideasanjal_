@@ -11,6 +11,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
+
+def post(request):
+    return render(request, "mynw/create_my_post.html")
+
+def message(request):
+    return render(request, "mynw/message.html")
+
+
 class EditProfileView(LoginRequiredMixin, UpdateView):
     """Edit profile view"""
 
