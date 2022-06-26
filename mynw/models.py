@@ -1,3 +1,4 @@
+from unicodedata import category
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.dispatch import receiver
@@ -38,8 +39,8 @@ class Idea(models.Model):
 
     title = models.CharField(max_length=100)
     description = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    category = models.CharField(max_length=20)
     user = models.ForeignKey(ISUser, on_delete=models.CASCADE)
 
     def __str__(self):

@@ -1,6 +1,15 @@
 from django import forms
 from .models import ISUser
+from .models import Idea 
 from django.contrib.auth import authenticate
+
+class IdeaCreationForm(forms.ModelForm):
+    """Form for creating an idea"""
+
+    class Meta:
+        model = Idea
+        fields = ["title", "category", "description"]
+        
 
 class EditProfileForm(forms.ModelForm):
     class Meta:

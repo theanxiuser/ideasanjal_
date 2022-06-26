@@ -1,3 +1,12 @@
-h1{
-    color: brown;
+.login-form-wrapper{
+    margin: 30px auto;
+    width: 40%;
+    padding: 15px;
+    border: 0.5px solid rgb(222, 222, 231);
+    background-color: rgb(243, 242, 242);
+    border-radius: 15px;
+  }
+
+.center{
+    text-align: center;
 }
