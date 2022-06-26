@@ -11,6 +11,9 @@ urlpatterns = [
     path("me/edit/", EditProfileView.as_view(), name="edit-profile"),
     path("user/<int:id_number>/", UserProfileView.as_view(), name="user-profile"),
 
+    path("message/", message, name="message"),
+    path("post/", post, name="post"),
+
     # path("idea/<int:id_number>", IdeaView.as_view(), name="idea"),
     
     # path("me/ideas/", MyIdeasView.as_view(), name="my-ideas"),
