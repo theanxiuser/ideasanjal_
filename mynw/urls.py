@@ -11,10 +11,10 @@ urlpatterns = [
     path("me/edit/", EditProfileView.as_view(), name="edit-profile"),
     path("user/<int:id_number>/", UserProfileView.as_view(), name="user-profile"),
 
-    path("idea/<int:id_number>", IdeaView.as_view(), name="idea"),
+    # path("idea/<int:id_number>", IdeaView.as_view(), name="idea"),
     
-    path("me/ideas/", MyIdeasView.as_view(), name="my-ideas"),
-    path("me/ideas/delete/<int:id_number>", DeleteIdeaView.as_view(), name="delete-idea"),
-    path("me/ideas/create/", CreateIdeaView.as_view(), name="create-idea"),
-    path("me/ideas/edit/<int:id_number>/", EditIdeaView.as_view(), name="edit-idea")
+    # path("me/ideas/", MyIdeasView.as_view(), name="my-ideas"),
+    # path("me/ideas/delete/<int:id_number>", DeleteIdeaView.as_view(), name="delete-idea"),
+    # path("me/ideas/create/", CreateIdeaView.as_view(), name="create-idea"),
+    # path("me/ideas/edit/<int:id_number>/", EditIdeaView.as_view(), name="edit-idea")
 ]

@@ -5,90 +5,18 @@ from . forms import LoginForm, RegistrationForm
 from django.contrib.auth import login, logout
 from django.contrib import messages
 from .models import ISUser, Message
-from django.views.generic import DetailView, UpdateView, ListView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .forms import EditProfileForm, IdeaCreationForm
-from .models import Idea
+from django.views.generic import DetailView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+# from .models import Idea
 
 # Create your views here.
-
-class EditIdeaView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    """Edit an idea"""
-    model = Idea
-    fields = ["title", "description", "category"]
-    template_name = "mynw/edit_idea.html"
-    context_object_name = "idea"
-
-    def test_func(self):
-        """Check if user is the owner of the idea"""
-        idea = self.get_object()
-        return self.request.user == idea.user
-
-
-class DeleteIdeaView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    """Delete an idea"""
-
-    model = Idea
-    sucesses_message = "Idea deleted successfully."
-    pk_url_kwarg = "id_number"
-    success_url = reverse_lazy("mynw:my-ideas")
-
-    def test_func(self):
-        idea = self.get_object()
-        return idea.user == self.request.user
-
-    def get(self, *args, **kwargs):
-        return self.post(*args, **kwargs)
-
-    def delete(self, *args, **kwargs):
-        messages.success(self.request, self.successes_message)
-        super(DeleteIdeaView, self).delete(*args, **kwargs)
-        return redirect(self.success_url)
-
-
-class CreateIdeaView(LoginRequiredMixin, View):
-    """Create an idea"""
-
-    template_name = "home/feed.html"
-    form_class = IdeaCreationForm
-
-    def form_valid(self, form):
-        """
-        If the form is valid, save the associated model.
-        """
-        idea = form.save(commit=False)
-        idea.user = self.request.user
-        idea.save()
-        messages.success(self.request, "Idea created successfully!")
-        return redirect(idea.get_absolute_url())
-
-
-class MyIdeasView(LoginRequiredMixin, ListView):
-    """View for my ideas"""
-
-    def get_queryset(self):
-        queryset = Idea.objects.filter(user=self.request.user)
-        return queryset
-
-    template_name = "mynw/my_ideas.html"
-    context_object_name = "ideas"
-    paginate_by = 6
-
-
-class IdeaView(DetailView, LoginRequiredMixin):
-    """Show idea details"""
-
-    model = Idea
-    template_name = "mynw/idea.html"
-    context_object_name = "idea"
-    pk_url_kwarg = "id_number"
-
 
 class EditProfileView(LoginRequiredMixin, UpdateView):
     """Edit profile view"""
 
-    form = EditProfileForm
-    fields = ["first_name", "last_name", "username", "email", "age", "profession", "bio", "skills", "linkedin", "twitter", "facebook", "github"]
+    # form = EditProfileForm
+    model = ISUser
+    fields = ["first_name", "last_name", "email", "age", "profession", "bio", "skills", "linkedin", "twitter", "facebook", "github"]
     template_name = "mynw/edit_profile.html"
     success_url = reverse_lazy("mynw:profile")
     
@@ -186,3 +114,77 @@ def register_view(request):
         form = RegistrationForm()
 
     return render(request, "home/registration.html", {"form": form})
+
+
+
+# class EditIdeaView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+#     """Edit an idea"""
+#     model = Idea
+#     fields = ["title", "description", "category"]
+#     template_name = "mynw/edit_idea.html"
+#     context_object_name = "idea"
+#
+#     def test_func(self):
+#         """Check if user is the owner of the idea"""
+#         idea = self.get_object()
+#         return self.request.user == idea.user
+#
+#
+# class DeleteIdeaView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+#     """Delete an idea"""
+#
+#     model = Idea
+#     sucesses_message = "Idea deleted successfully."
+#     pk_url_kwarg = "id_number"
+#     success_url = reverse_lazy("mynw:my-ideas")
+#
+#     def test_func(self):
+#         idea = self.get_object()
+#         return idea.user == self.request.user
+#
+#     def get(self, *args, **kwargs):
+#         return self.post(*args, **kwargs)
+#
+#     def delete(self, *args, **kwargs):
+#         messages.success(self.request, self.successes_message)
+#         super(DeleteIdeaView, self).delete(*args, **kwargs)
+#         return redirect(self.success_url)
+#
+
+# class CreateIdeaView(LoginRequiredMixin, View):
+#     """Create an idea"""
+#
+#     template_name = "home/feed.html"
+#     form_class = IdeaCreationForm
+#
+#     def form_valid(self, form):
+#         """
+#         If the form is valid, save the associated model.
+#         """
+#         idea = form.save(commit=False)
+#         idea.user = self.request.user
+#         idea.save()
+#         messages.success(self.request, "Idea created successfully!")
+#         return redirect(idea.get_absolute_url())
+#
+#
+# class MyIdeasView(LoginRequiredMixin, ListView):
+#     """View for my ideas"""
+#
+#     def get_queryset(self):
+#         queryset = Idea.objects.filter(user=self.request.user)
+#         return queryset
+#
+#     template_name = "mynw/my_ideas.html"
+#     context_object_name = "ideas"
+#     paginate_by = 6
+#
+#
+# class IdeaView(DetailView, LoginRequiredMixin):
+#     """Show idea details"""
+#
+#     model = Idea
+#     template_name = "mynw/idea.html"
+#     context_object_name = "idea"
+#     pk_url_kwarg = "id_number"
+

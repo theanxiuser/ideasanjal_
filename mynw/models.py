@@ -30,23 +30,23 @@ class ISUser(AbstractUser):
         verbose_name = "User"
         verbose_name_plural = "Users"
 
-class Idea(models.Model):
-    """
-    Idea model is used to store ideas.
-    """
-
-    title = models.CharField(max_length=100)
-    description = models.TextField()
-    timestamp = models.DateTimeField(auto_now_add=True)
-    category = models.CharField(max_length=20)
-    user = models.ForeignKey(ISUser, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"{self.user} - {self.title}"
-
-    class Meta:
-        verbose_name = "Idea"
-        verbose_name_plural = "Ideas"
+# class Idea(models.Model):
+#     """
+#     Idea model is used to store ideas.
+#     """
+#
+#     title = models.CharField(max_length=100)
+#     description = models.TextField()
+#     timestamp = models.DateTimeField(auto_now_add=True)
+#     category = models.CharField(max_length=20)
+#     user = models.ForeignKey(ISUser, on_delete=models.CASCADE)
+#
+#     def __str__(self):
+#         return f"{self.user} - {self.title}"
+#
+#     class Meta:
+#         verbose_name = "Idea"
+#         verbose_name_plural = "Ideas"
 
 class Message(models.Model):
     """Model for messages"""
