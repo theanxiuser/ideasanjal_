@@ -5,8 +5,8 @@
 
 {% for post in post_list %}
     {{ post.title }} <hr>
-    {{ post.content | slice:":200" }}<hr>
-    <a href="{% url 'home:post-detail' post.slug  %}">Read More &rarr;</a><hr><hr>
+    {{ post.content | slice:":200" | safe}}
+    <a href="{% url 'home:post-detail' post.slug  %}">Read More</a><hr><hr>
 {% endfor %}
 
 {% endblock %}
