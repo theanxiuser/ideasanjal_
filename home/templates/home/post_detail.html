@@ -2,8 +2,11 @@
 
 {{ post.author }}
 
-{{ post.content }}<br>
+{{ post.content | safe }}<br>
 
 {% if post.image %}
 <img src="{{ post.image.url }}"><br>
+
+    {{ post.image.url }}
+
 {% endif %}
