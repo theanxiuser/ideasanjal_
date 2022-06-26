@@ -2,4 +2,11 @@
 
 {% block content %}
 <h1>This is Feed page</h1>
+
+{% for idea in ideas %}
+    {% include "mynw/feed_item.html" %}
+{% empty %}
+    <p>No Ideas to show</p>
+{% endfor %}
+
 {% endblock %}

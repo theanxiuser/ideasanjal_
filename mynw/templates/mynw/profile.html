@@ -8,4 +8,30 @@
 
 <h1> Profile page</h1>
 
+{{ user.first_name }} {{ user.last_name }} <br>
+{{ user.age }}
+
+{{ user.skills }}
+
+{% if self_profile %}
+    <a href="{% url 'mynw:edit-profile' %}" >Edit Profile</a>
+{% else %}
+    <!-- <a href="{% url 'send-message' id_number=data.id %}" >Send Message</a> -->
+{% endif %}
+
+<label for="">Username</label>
+<p>{{ user.username }}</p>
+
+<label for="">Name</label>
+<p>{{ user.first_name }} {{ user.last_name }}</p>
+
+<label for="">Email</label>
+<p>{{ user.email }}</p>
+
+<label for="">Profession</label>
+<p>{{ user.profession | default:"Profession not added." }}</p>
+
+<label for="">Bio</label>
+<p>{{ user.bio | default:"Bio not added." }}</p>
+
 {% endblock %}
