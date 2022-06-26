@@ -5,7 +5,7 @@ from django.contrib.auth.models import AbstractUser
 
 class ISUser(AbstractUser):
     """
-    ISUser model is enherit from User. More fields are added
+    ISUser model is inherit from User. More fields are added
     and it is used as authentication model.
     """
 
@@ -13,8 +13,8 @@ class ISUser(AbstractUser):
     last_name = models.CharField(max_length=20)
     username = models.CharField(max_length=20, unique=True)
     password = models.CharField(max_length=254)
-    email = models.EmailField(max_length=254, unique=True, null=False)
-    age = models.PositiveSmallIntegerField()
+    email = models.EmailField(max_length=254, null=False)
+    age = models.PositiveSmallIntegerField(null=True)
     profession = models.CharField(max_length=30, blank=True)
     bio = models.TextField(max_length=500, blank=True)
     skills = models.TextField(null=True, blank=True)
@@ -58,3 +58,4 @@ class Message(models.Model):
 
     def __str__(self):
         return f"{self.sender} - {self.message}"
+
