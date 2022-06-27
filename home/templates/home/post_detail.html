@@ -1,12 +1,21 @@
-<h1>{{ post.title }}</h1>
+{% extends "home/index.html" %}
 
-{{ post.author }}
+{% block content %}
+<div style="width: 80%; margin: auto;" >
+<h1>{{ post.title }}</h1><br><hr>
+
+<p>{{ post.author }}</p>
+
+<p><small >{{ post.updated_at }}</small></p>
+
 
 {{ post.content | safe }}<br>
 
 {% if post.image %}
-<img src="{{ post.image.url }}"><br>
+<img style="width: 500px" src="{{ post.image.url }}">
 
-    {{ post.image.url }}
 
 {% endif %}
+</div>
+
+{% endblock %}
