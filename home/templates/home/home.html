@@ -1,0 +1,28 @@
+{% extends "home/index.html" %}
+
+{% block title %}
+    - Social network for business activities
+{% endblock %}
+
+<style>
+
+
+</style>
+
+{% block content %}
+
+    <div class="container">
+        <div class="side-content">
+            <h1 class="brand-name">ideasanjal</h1>
+            <p class="brand-title center text-uppercase">Social Network For Business Activities</p>
+            <div class="login-urls">
+                 <a class="btn btn-success" href="{% url 'mynw:login' %}">LOG IN</a>
+                <a class="btn btn-outline-info" href="{% url 'mynw:register' %}">SIGN UP</a>
+            </div>
+        </div>
+        <div>
+            <img src="/static/img/growth.png" class="side-image" alt="business growth">
+        </div>
+    </div>
+
+{% endblock %}
