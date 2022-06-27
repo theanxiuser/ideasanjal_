@@ -29,5 +29,5 @@ class IndexView(View):
         if request.user.is_authenticated:
             # messages.info(request, "You are already logged in")
             return redirect(reverse_lazy('home:feed'))
-        return render(request, "home/index.html")
+        return render(request, "home/home.html")
 
